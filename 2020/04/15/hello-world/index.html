@@ -15,9 +15,9 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="">
-  <meta name="author" content="Lizzy">
+  <meta name="author" content="Elizabeth">
   <meta name="keywords" content="">
-  <title>Hello World - Lizzy&#39;s Blog</title>
+  <title>Testing React Typescript with Jest and Enzyme - Elizabeth&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css" />
@@ -46,7 +46,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/blog/">&nbsp;<strong>Lizzy's Blog</strong>&nbsp;</a>
+       href="/blog/">&nbsp;<strong>Elizabeth's Blog</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -139,7 +139,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    73 字
+                    485 字
                   </span>
                 
 
@@ -149,7 +149,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    1
+                    9
                      分钟
                   </span>
                 
@@ -178,19 +178,63 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+              <h1 id="With-Create-React-App"><a href="#With-Create-React-App" class="headerlink" title="With Create React App"></a>With Create React App</h1><p>Create React App uses Jest as its test runner. So if you start a new Create React App project with the following commands, you can enjoy an out-of-box testing environment.<br>npx create-react-app my-app –template typescript</p>
+<h1 id="Without-Create-React-App"><a href="#Without-Create-React-App" class="headerlink" title="Without Create React App"></a>Without Create React App</h1><p>If you set up a project simply using React, typescript, jest and webpack, you may encounter into a series of problems when running tests.</p>
+<h2 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem 1"></a>Problem 1</h2><pre><code class="js">// need @babel/preset-env to use import
+SyntaxError: Cannot use import statement outside a module.
+// need @babel/preset-react to use react components
+SyntaxError: Unexpected token &lt;.
+// need @babel/preset-typescript to use type definitions
+SyntaxError: Support for the experimental syntax &#39;exportDefaultFrom&#39; isn&#39;t currently enabled.
+ export type Option = {
+        |        ^
+      6 |   label: string,
+      7 |   value: string
+      8 | }</code></pre>
+<p>These errors occur when importing React and other modules in the XX.test.tsx file. When running “npm run dev”, we use webpack or other tools to handle all the babel transform work with the help of ts-loader. However, when we run “npm run test”, jest does not recognize all the syntaxes beyond basic javascript. Thus, we need to config babel presets for jest or simply using ts-jest.</p>
+<h3 id="With-Ts-jest"><a href="#With-Ts-jest" class="headerlink" title="With Ts-jest"></a>With Ts-jest</h3><p>We just need to add a single config in the jest.config.js file.</p>
+<pre><code class="js">// jest.config.js
+module.exports = {
+ transform: { &#39;^.+\\.tsx?$&#39;: &#39;ts-jest&#39;},
+}</code></pre>
+<h3 id="With-Babel"><a href="#With-Babel" class="headerlink" title="With Babel"></a>With Babel</h3><p>we need to config related babel presets as follows:</p>
+<pre><code class="js">// babel.config.json
+{
+  “presets”: [
+    [  
+      “@babel/preset-env”,
+      { “targets”: { “esmodules”: true } }
+    ],
+    [“@babel/preset-react”],
+    [“@babel/preset-typescript”]
+  ]
+}</code></pre>
+<h2 id="Problem-2"><a href="#Problem-2" class="headerlink" title="Problem 2"></a>Problem 2</h2><pre><code class="js">SyntaxError: Unexpected token &#39;.&#39;
+&gt; 1 | import &#39;./MultiCheck.css&#39;;</code></pre>
+<p>Jest cannot parse files that are not javascript, thus we need to mock the non-JS modules with the “moduleNameMapper” config option.</p>
+<pre><code class="js">// create a file styleMock.js for jest to handle css files
+module.exports = {};</code></pre>
+<p>Then add the config option.</p>
+<pre><code class="js">// jest.config.js
+module.exports = {
+ transform: { &#39;^.+\\.tsx?$&#39;: &#39;ts-jest&#39; },
+ moduleNameMapper: { &#39;\\.(css|less)$&#39;: &#39;&lt;rootDir&gt;/styleMock.js&#39; },
+}</code></pre>
+<h2 id="Using-Enzyme"><a href="#Using-Enzyme" class="headerlink" title="Using Enzyme"></a>Using Enzyme</h2><p>If you’d like to test components in isolation from the child components they render, we recommend using shallow() rendering API from Enzyme.</p>
+<pre><code class="js">npm install — save enzyme enzyme-adapter-react-16</code></pre>
+<p>As of Enzyme 3, you will need to install Enzyme along with an Adapter corresponding to the version of React you are using. (The examples above use the adapter for React 16.)</p>
+<pre><code class="js">// jest.config.js
+import { configure } from &#39;enzyme&#39;;
+import Adapter from &#39;enzyme-adapter-react-16&#39;;
+configure({ adapter: new Adapter() });</code></pre>
+<p>The adapter will also need to be configured in your global setup file:</p>
+<pre><code class="js">// jest.config.js
+module.exports = {
+ transform: { &#39;^.+\\.tsx?$&#39;: &#39;ts-jest&#39; },
+ moduleNameMapper: { &#39;\\.(css|less)$&#39;: &#39;&lt;rootDir&gt;/styleMock.js&#39; },
+ setupFiles: [&#39;&lt;rootDir&gt;/jest.setup.js&#39;],
+}</code></pre>
+<p>After all these configs, you should be able to test a react typecript project with jest and enzyme.</p>
 
             </article>
             <hr>
@@ -391,7 +435,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Hello World&nbsp;",
+        "Testing React Typescript with Jest and Enzyme&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
