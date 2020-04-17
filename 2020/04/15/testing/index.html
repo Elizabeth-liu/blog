@@ -220,7 +220,7 @@ module.exports = {
  transform: { &#39;^.+\\.tsx?$&#39;: &#39;ts-jest&#39; },
  moduleNameMapper: { &#39;\\.(css|less)$&#39;: &#39;&lt;rootDir&gt;/styleMock.js&#39; },
 }</code></pre>
-<h2 id="Using-Enzyme"><a href="#Using-Enzyme" class="headerlink" title="Using Enzyme"></a>Using Enzyme</h2><p>If you’d like to test components in isolation from the child components they render, we recommend using shallow() rendering API from Enzyme.</p>
+<h1 id="Using-Enzyme"><a href="#Using-Enzyme" class="headerlink" title="Using Enzyme"></a>Using Enzyme</h1><p>If you’d like to test components in isolation from the child components they render, we recommend using shallow() rendering API from Enzyme.</p>
 <pre><code class="js">npm install — save enzyme enzyme-adapter-react-16</code></pre>
 <p>As of Enzyme 3, you will need to install Enzyme along with an Adapter corresponding to the version of React you are using. (The examples above use the adapter for React 16.)</p>
 <pre><code class="js">// jest.config.js
@@ -241,6 +241,28 @@ module.exports = {
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/web/">web</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/jest/">jest</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/test/">test</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/react/">react</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/typescript/">typescript</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/enzyme/">enzyme</a>
+                    
+                  </div>
                 
               </div>
               
@@ -269,8 +291,8 @@ module.exports = {
     <div id="disqus_thread"></div>
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'https://elizabeth-liu.github.io/blog/2020/04/15/hello-world/';
-        this.page.identifier = '/2020/04/15/hello-world/';
+        this.page.url = 'https://elizabeth-liu.github.io/blog/2020/04/15/testing/';
+        this.page.identifier = '/2020/04/15/testing/';
       };
       var oldLoadDq = window.onload;
       window.onload = function () {
